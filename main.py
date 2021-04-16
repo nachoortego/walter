@@ -1,7 +1,10 @@
 import discord
 import tickers
+import os
+from dotenv import load_dotenv
 
-TOKEN = 'NzIyNjEyMTAxOTQzNzg3NTgw.Xulm9g.rhEA4Kd9O4QZ_QM1wxRKrVOL0a0'
+load_dotenv()
+TOKEN = os.getenv('discord_secret')
 client = discord.Client()
 
 prefix = '='
