@@ -11,6 +11,7 @@ tickers = client.get_all_tickers()
 
 # Aplicar busqueda binaria
 def getPrice(symbol):
+    tickers = client.get_all_tickers()
     for item in tickers:
         if item['symbol'] == symbol:
             return item['price']

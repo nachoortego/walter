@@ -1,13 +1,17 @@
 import discord
-import tickers
+import pipe
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 TOKEN = os.getenv('discord_secret')
 client = discord.Client()
 
 prefix = '='
+
+now = datetime.now()
+current_time = now.strftime("%H:%M:%S")
 
 
 @client.event
@@ -22,11 +26,18 @@ async def on_message(message):
 
     if message.content.startswith('hola'):
         await message.channel.send('hola trolazo')
-    
-    await tickers.findPrice(message)
+
+    await pipe.findPrice(message)
 
     if message.content.startswith(prefix):
         if 'crypto' in message.content:
-            await tickers.crypto(message)
+            await pipe.crypto(message)
+            await message.channel.send(current_time)
+
+async def help():
+    embed = discord.Embed(tittle='Walter-Binance Help', description='A list of the discord commands for the Binance API')
+
+
+
 
 client.run(TOKEN)
