@@ -6,7 +6,7 @@ coin, pair = '', ''
 async def findPrice(message):
     for i in binan.list:
         if message.content.upper() == i:
-            await message.channel.send(binan.getPrice(i.upper()))
+            await message.channel.send('{0:.2f}'.(binan.getPrice(i.upper())))
 
 
 async def crypto(message):
