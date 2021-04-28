@@ -1,8 +1,10 @@
 import discord
 import pipe
 import os
+import meets
 from dotenv import load_dotenv
 from datetime import datetime
+from discord.ext import tasks
 
 load_dotenv()
 TOKEN = os.getenv('discord_secret')
@@ -17,6 +19,7 @@ current_time = now.strftime("%H:%M:%S")
 @client.event
 async def on_ready():
     print('Estoy vivo como {0.user}'.format(client))
+    links.start()
 
 
 @client.event
@@ -34,10 +37,15 @@ async def on_message(message):
             await pipe.crypto(message)
             await message.channel.send(current_time)
 
-async def help():
-    embed = discord.Embed(tittle='Walter-Binance Help', description='A list of the discord commands for the Binance API')
 
-
-
+@tasks.loop(seconds=60)
+async def links():
+    if meets.mandar() is not None:
+        dicc = meets.mandar()
+        link = dicc.get("link")
+        nom = dicc.get("nombre")
+        content = f"Clase de {nom}, link: {link}"
+        message_channel = client.get_channel(821065824596394015)
+        await message_channel.send(content)
 
 client.run(TOKEN)
