@@ -7,5 +7,5 @@ def mandar():
     hora = datetime.now().strftime("%H:%M")
     for materia in clases.info:
         if materia.get("dia") == dia:
-            if hora in materia.get("hora"):
+            if hora == materia.get("hora"):
                 return materia
