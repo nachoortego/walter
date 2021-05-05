@@ -28,14 +28,13 @@ async def on_message(message):
         return
 
     if message.content.startswith('hola'):
-        await message.channel.send('hola trolazo')
+        await message.channel.send(':dollar:**hola trolazo**')
 
     await pipe.findPrice(message)
 
     if message.content.startswith(prefix):
         if 'crypto' in message.content:
             await pipe.crypto(message)
-            await message.channel.send(current_time)
 
 
 @tasks.loop(seconds=60)
@@ -45,7 +44,12 @@ async def links():
         link = dicc.get("link")
         nom = dicc.get("nombre")
         content = f"Clase de {nom}, link: {link}"
-        message_channel = client.get_channel(821065824596394015)
+        message_channel = client.get_channel(838783941355896884)
         await message_channel.send(content)
+
+
+@tasks.loop(hours=8)
+async def prices(message):
+    await pipe.crypto(message)
 
 client.run(TOKEN)
